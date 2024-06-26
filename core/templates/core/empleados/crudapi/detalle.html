@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block principal %}
+<style>
+    .employee-card {
+        display: flex;
+        margin: 15px 0; /* Ajuste de margen vertical */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .employee-image {
+        flex: 0 0 150px; /* Ancho fijo para la imagen */
+        height: 150px; /* Altura fija para la imagen */
+        overflow: hidden;
+        margin-right: 20px; /* Margen entre imagen y texto */
+    }
+
+    .employee-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Cubre completamente el contenedor */
+        border-radius: 50%; /* Para hacer la imagen redonda */
+        border: 2px solid #ccc; /* Borde alrededor de la imagen */
+    }
+
+    .employee-info {
+        flex: 1; /* Para ocupar el espacio restante */
+        text-align: left; /* Alineación del texto a la izquierda */
+    }
+
+    .info-row {
+        margin-top: 13px;
+        margin-bottom: 10px; /* Espacio entre las filas de información */
+        line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
+    }
+
+    .info-label {
+        font-weight: bold; /* Texto de etiqueta en negrita */
+        display: inline-block;
+        width: 80px; /* Ancho fijo para las etiquetas */
+        margin-right: -15px; /* Margen derecho entre etiqueta y valor */
+    }
+
+</style>
+
+<div class="white_card mb_30" style="margin: 0 15px;">
+    <div class="white_card_header">
+        <div class="box_header m-0">
+            <div class="main-title">
+                <h2 class="m-0">Detalle del Empleado</h2>
+            </div>
+        </div>
+    </div>
+    <div class="white_card_body">
+        <div class="employee-card">
+            <div class="employee-image">
+                {% if empleado.imagen %}
+                    <img src="{{ empleado.imagen }}" alt="{{ empleado.nombre }}">
+                {% else %}
+                    <img src="{% static 'core/img/Default.png' %}" alt="{{ empleado.nombre }}">
+                {% endif %}
+            </div>
+            <div class="employee-info">
+                <div class="info-row">
+                    <span class="info-label">Rut:</span>
+                    {{ empleado.rut }}
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Nombre:</span>
+                    {{ empleado.nombre }} {{ empleado.apellido }}
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Edad:</span>
+                    {{ empleado.edad }}
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Teléfono:</span>
+                    {{ empleado.telefono }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

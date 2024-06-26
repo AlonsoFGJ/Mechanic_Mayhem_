@@ -1,0 +1,69 @@
+{% load static %} {% block principal %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Locked</title>
+    <style>
+      /* Estilos para el cuerpo de la página */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #c7c7c7;
+      }
+
+      /* Estilos para el contenedor principal */
+      .container {
+        width: 80%;
+        max-width: 800px; /* Ajustar el ancho máximo según sea necesario */
+        text-align: center;
+        padding: 40px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid #ccc; /* Borde alrededor del contenedor */
+        box-sizing: border-box; /* Para incluir el borde en el ancho y alto total */
+      }
+
+      /* Estilo para el título */
+      h2 {
+        margin-top: 0;
+      }
+
+      /* Estilo para el texto explicativo */
+      .problem-description {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Aquí colocamos la imagen y el título -->
+      <h1>Mechanic Mayhem</h1>
+
+      <!-- Aquí colocamos el texto explicativo -->
+      <h2 class="problem-description">
+        Tu cuenta se ha bloqueado por 3 intentos fallidos, inténtalo de nuevo en
+        5 minutos.
+      </h2>
+      <img
+        src="{% static 'core/img/Taller_logo.png' %}"
+        alt="Imagen"
+        height="200px"
+        width="350px"
+      />
+    </div>
+
+    <script>
+      // Redirigir a la página principal después de 5 segundos
+      setTimeout(function () {
+        window.location.href = "{% url 'index' %}";
+      }, 5000); // 5000 milisegundos = 5 segundos
+    </script>
+  </body>
+</html>
+{% endblock %}

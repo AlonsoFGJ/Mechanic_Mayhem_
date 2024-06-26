@@ -1,0 +1,476 @@
+{% extends 'core/base.html' %} 
+{% load static %} 
+{% block principal %}
+
+<style>
+  
+  .card {
+    height: 460px;
+    display: flex;
+
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  }
+
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-img-top {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    height: 250px;
+  }
+
+  .card-text {
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    text-align: center;
+  }
+
+  .btn-primary {
+    margin-top: auto;
+    width: 100%;
+  }
+</style>
+
+<section id="Productos">
+  <div class="container mt-3">
+    <h2 style="text-align: center">Nuestros Productos</h2>
+    <div class="row">
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/1.png' %}"
+            alt="Card image"
+            style="width: 100%"
+            width="500"
+            height="450"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Centralita Electrónica</h4>
+            <p class="card-text">
+              Controla el motor y otros sistemas electrónicos.
+            </p>
+            <h4 style="text-align: center;">$8.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/2.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Sensor de Oxígeno</h4>
+            <p class="card-text">
+              Monitorea la proporción de oxígeno en los gases de escape.
+            </p>
+            <h4 style="text-align: center;">$6.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/3.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Batería del Auto</h4>
+            <p class="card-text">Suministra energía eléctrica al sistema.</p>
+            <h4 style="text-align: center;">$9.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/4.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Sistema de arranque</h4>
+            <p class="card-text">Inicia el motor y genera energía eléctrica.</p>
+            <h4 style="text-align: center;">$14.99 USD</h4>
+            <div style="justify-content: center;" class="text-center" id="paypal-button"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/5.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Luces LED</h4>
+            <p class="card-text">
+              Mejoran la visibilidad y son eficientes energéticamente.
+            </p>
+            <h4 style="text-align: center;">$4.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/6.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Sistema de audio</h4>
+            <p class="card-text">Radios con pantalla táctil.</p>
+            <h4 style="text-align: center;">$7.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/7.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Cámara de retroceso</h4>
+            <p class="card-text">Ayuda al estacionamiento y a las maniobras.</p>
+            <h4 style="text-align: center;">$4.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/8.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Sistema GPS</h4>
+            <p class="card-text">
+              Ayuda a la navegación y ubicación del vehículo.
+            </p>
+            <h4 style="text-align: center;">$5.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/9.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Amortiguadores</h4>
+            <p class="card-text">
+              Para mejorar la comodidad y el manejo del vehículo.
+            </p>
+            <h4 style="text-align: center;">$9.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/10.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Barras amortiguadoras</h4>
+            <p class="card-text">
+              Mejora la estabilidad y el control del vehículo.
+            </p>
+            <h4 style="text-align: center;">$12.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/11.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Rótulas de dirección</h4>
+            <p class="card-text">
+              Componentes esenciales para la dirección del vehículo.
+            </p>
+            <h4 style="text-align: center;">$7.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/12.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Bujes de suspensión</h4>
+            <p class="card-text">
+              Reducen la vibración y mejoran la estabilidad.
+            </p>
+            <h4 style="text-align: center;">$3.5 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/13.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Muelles de suspensión</h4>
+            <p class="card-text">
+              Soportan el peso del vehículo y mejoran la conducción.
+            </p>
+            <h4 style="text-align: center;">$4.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/14.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">KIT de nivelación</h4>
+            <p class="card-text">
+              Para mejorar la altura del vehículo y el desempeño off-road.
+            </p>
+            <h4 style="text-align: center;">$10 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/15.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Aceite de transmisión</h4>
+            <p class="card-text">Lubricante esencial para la transmisión.</p>
+            <h4 style="text-align: center;">$4.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/16.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Filtro de transmisión</h4>
+            <p class="card-text">
+              Mantiene limpio los fluidos de la transmisión.
+            </p>
+            <h4 style="text-align: center;">$9.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/17.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Embrague</h4>
+            <p class="card-text">
+              Para la transmisión de potencia entre el motor y la caja de
+              cambios.
+            </p>
+            <h4 style="text-align: center;">$7.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/18.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Sensor de velocidad en ruedas</h4>
+            <p class="card-text">
+              Para el sistema de frenos antibloqueos (ABS) y control de
+              tracción.
+            </p>
+            <h4 style="text-align: center;">$12.75 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/19.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Juntas homocinéticas</h4>
+            <p class="card-text">
+              Permiten la transmisión de potencia de las ruedas mientras se
+              mueven y giran.
+            </p>
+            <h4 style="text-align: center;">$6.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 card-equal-height">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{% static 'core/img/20.png' %}"
+            alt="Card image"
+            style="width: 100%"
+          />
+          <div class="card-body">
+            <h4 class="card-title">Aceite diferencial</h4>
+            <p class="card-text">
+              Lubricante para el diferencial del vehículo, importante para la
+              transmisión de potencia de las ruedas.
+            </p>
+            <h4 style="text-align: center;">$9.99 USD</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</section>
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+
+  paypal.Button.render({
+  // Configure environment
+  env: 'sandbox',
+  client: {
+  sandbox: 'AQYXVx3SSCZEt_BeNq6YFDkKt79qbo9KLlxpa6sjJ1XqU-c4-IVixG0svaWaM_cUVnohe_Fx-l3YU4mV',
+  production: 'demo_production_client_id'
+  },
+  // Customize button (optional)
+  locale: 'en_US',
+  style: {
+  size: 'medium',
+  color: 'blue',
+  shape: 'pill',
+  },
+  // Enable Pay Now checkout flow (optional)
+  commit: true,
+  // Set up a payment
+  payment: function (data, actions) {
+  return actions.payment.create({
+  transactions: [{
+  amount: {
+  total: '4.0',
+  currency: 'USD'
+  }
+  }]
+  });
+  },
+  // Execute the payment
+  onAuthorize: function (data, actions) {
+  return actions.payment.execute().then(function () {
+  // Show a confirmation message to the buyer
+  window.alert('Thank you for your purchase!');
+  });
+  }
+  }, '#paypal-button');
+
+</script>
+
+{% endblock %}
