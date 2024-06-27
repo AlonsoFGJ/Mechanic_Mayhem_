@@ -190,8 +190,12 @@ def empleadodetalle(request, id):
     response = requests.get(f'http://127.0.0.1:8000/api/empleados/{id}/')
     empleado = response.json()
 
+    # Construye la URL absoluta de la imagen
+    if empleado.get('imagen'):
+        empleado['imagen'] = f'http://127.0.0.1:8000/{empleado["imagen"]}'
+
     aux = {
-        'empleado' : empleado
+        'empleado': empleado
     }
 
     return render(request, 'core/empleados/crudapi/detalle.html', aux)
