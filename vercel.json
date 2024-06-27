@@ -1,12 +1,16 @@
 {
-    "builds":[{
-        "src":"Pagina/wsgi.py",
-        "use":"@vercel/python",
-        "config":{"maxLambdaSize": "15mb", "runtime": "python3.9"} 
-    }],
-    "routes":[{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/media/(.*)",
+        "dest": "http://127.0.0.1:8000/media/$1",
+        "headers": {
+          "Cache-Control": "s-maxage=31536000, stale-while-revalidate"
+        }
+      },
+      {
         "src": "/(.*)",
-        "dest": "Pagina/wsgi.py"
-    }]
-
-}
+        "dest": "/Pagina/wsgi.py"
+      }
+    ]
+  }
