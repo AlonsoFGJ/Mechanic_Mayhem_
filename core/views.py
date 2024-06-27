@@ -62,7 +62,7 @@ def empleados (request):
     empleados = Empleado.objects.all()
 
     #Paginator
-    paginator = Paginator(empleados,3)
+    paginator = Paginator(empleados,4)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -74,19 +74,21 @@ def empleados (request):
     return render(request, 'core/empleados/index.html', aux)
 
 @permission_required('core.add_empleado')
-def empleadosadd (request):
+def empleadosadd(request):
     aux = {
-        'form' : EmpleadoForm()
+        'form': EmpleadoForm()
     }
 
     if request.method == 'POST':
         formulario = EmpleadoForm(request.POST, files=request.FILES)
         if formulario.is_valid():
-            formulario.save()
-            messages.success(request, "Mecanico/a creado/a correctamente")
-        else: 
+            empleado = formulario.save(commit=False)
+            empleado.save()
+            messages.success(request, "Mecánico/a creado/a correctamente")
+            return redirect('empleados')
+        else:
             aux['form'] = formulario
-            messages.error(request, "El Mecanico/a  no se pudo crear!")
+            messages.error(request, "El Mecánico/a no se pudo crear!")
 
     return render(request, 'core/empleados/crud/add.html', aux)
 

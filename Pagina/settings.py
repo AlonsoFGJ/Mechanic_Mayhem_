@@ -174,7 +174,7 @@ cloudinary.config(
     api_key='692897366215152',
     api_secret='td6YHUa51DJ7E7RFiKBG9QK0rLs'
 )
-
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 #Configuraciones para msj
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"

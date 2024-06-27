@@ -31,7 +31,7 @@ class Empleado(models.Model):
     genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
     tipo = models.ForeignKey(TipoEmpleado, on_delete=models.CASCADE)
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
-    imagen = CloudinaryField('img')
+    imagen = CloudinaryField('img', blank=True)
 
     def __str__(self):
         return "{} {}".format(self.nombre, self.apellido)

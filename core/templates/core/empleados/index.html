@@ -2,48 +2,75 @@
 {% load static %}
 
 {% block principal %}
+
 <style>
-    .employee-card {
-        display: flex;
-        margin: 15px 0; /* Ajuste de margen vertical */
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        overflow: hidden;
-    }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-    .employee-image {
-        flex: 0 0 150px; /* Ancho fijo para la imagen */
-        height: 150px; /* Altura fija para la imagen */
-        overflow: hidden;
-        margin-right: 20px; /* Margen entre imagen y texto */
-    }
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1;
+}
 
-    .employee-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Cubre completamente el contenedor */
-        border-radius: 50%; /* Para hacer la imagen redonda */
-        border: 2px solid #ccc; /* Borde alrededor de la imagen */
-    }
+.dropdown-menu.show {
+    display: block;
+}
 
-    .employee-info {
-        flex: 1; /* Para ocupar el espacio restante */
-        text-align: left; /* Alineación del texto a la izquierda */
-    }
+.dropdown-toggle::after {
+    content: none; 
+}
 
-    .info-row {
-        margin-top: 13px;
-        margin-bottom: 10px; /* Espacio entre las filas de información */
-        line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
-    }
+.dropdown-toggle::before {
+    content: "\2026"; 
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    color: #333;
+    vertical-align: middle;
+    margin-left: 5px;
+}
 
-    .info-label {
-        font-weight: bold; /* Texto de etiqueta en negrita */
-        display: inline-block;
-        width: 80px; /* Ancho fijo para las etiquetas */
-        margin-right: -15px; /* Margen derecho entre etiqueta y valor */
-    }
+.dropdown-item {
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdown-toggle .ti-more-alt {
+    display: none; 
+}
+
+.dropdown-toggle::before {
+    content: "\2026"; 
+    font-size: 24px; 
+    color: black; 
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.byder_thumb {
+    max-width: 100px; 
+    height: auto; 
+}
+
+.dropdown-second .dropdown-toggle::before {
+    content: ""; 
+}
+
+.espacio {
+    margin-bottom: 27px; 
+    padding-left: 10px; 
+}
 
 </style>
 
@@ -51,43 +78,115 @@
     <div class="white_card_header">
         <div class="box_header m-0">
             <div class="main-title">
-                <h2 class="m-0">Detalle del Empleado</h2>
+                <h2 class="m-0" style="background-color: #021730; padding: 15px; color: aliceblue; border-radius: 30px;">Lista de Mecanicos</h2>
             </div>
+            {% if perms.core.add_empleado%}
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false">
+                        <i class="ti-more-alt"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="{% url 'empleadosadd' %}"><i class="ti-plus"></i> Agregar</a></li>
+                    </ul>
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="white_card_body">
-        {% for empleado in empleados %}
-        <div class="employee-card">
-            <div class="employee-image">
-                {% if empleado.imagen %}
-                    <!-- Asegúrate de que la ruta de la imagen sea correcta -->
-                    <img src="{{ empleado.imagen }}" alt="{{ empleado.nombre }}">
-                {% else %}
-                    <!-- Si no hay imagen disponible, usa una por defecto -->
-                    <img src="{% static 'core/img/Default.png' %}" alt="{{ empleado.nombre }}">
-                {% endif %}
-            </div>
-            <div class="employee-info">
-                <div class="info-row">
-                    <span class="info-label">Rut:</span>
-                    {{ empleado.rut }}
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Nombre:</span>
-                    {{ empleado.nombre }} {{ empleado.apellido }}
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Edad:</span>
-                    {{ empleado.edad }}
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Teléfono:</span>
-                    {{ empleado.telefono }}
-                </div>
-            </div>
+        <div class="table-responsive">
+            <table class="table bayer_table m-0">
+                <tbody>
+                    {% for aux in page_obj %}
+                    <tr style="border: hidden;">
+                        <td>
+                            {% if aux.imagen %}
+                                <img class="byder_thumb" src="{{ aux.imagen.url }}" alt="">
+                            {% else %}
+                                <img class="byder_thumb" src="{% static 'core/img/Default.png' %}" alt="">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="payment_gatway">
+                                <h5 class="byer_name f_s_16 f_w_700 color_theme">{{ aux.nombre }} {{ aux.apellido }}</h5>
+                                <p class="color_gray f_s_12 f_w_700">{{ aux.telefono }}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="payment_gatway text-end">
+                                <div class="espacio"></div> <!-- Esto es porque me da cosa que no quede tan alineado -->
+                                <h5 class="byer_name f_s_15 f_w_700 color_theme">
+                                    {{ aux.tipo.descripcion }}
+                                    {% if aux.habilitado %}
+                                        - Si está disponible para trabajar
+                                    {% else %}
+                                        - No está disponible para trabajar
+                                    {% endif %}
+                                </h5>
+                                <div class="dropdown dropdown-second"> <!-- Agregar la clase "dropdown-second" al segundo dropdown -->
+                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                        🠟
+                                    </button>
+                                    {% if perms.core.change_empleado%}
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" href="{% url 'empleadosupdate' aux.id %}"><i class="fa fa-edit"></i> Modificar</a></li>
+                                        <li><a class="dropdown-item" onclick="confirmarDelete({{ aux.id }})"> <i class="fa fa-trash"></i> Eliminar</a></li>
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        {% endfor %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+               {% if page_obj.has_previous %}
+               <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+               {% endif %}
+      
+               {% for num in page_obj.paginator.page_range %}
+               {% if page_obj.number == num %}
+               <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+               {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+               <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+               {% endif %}
+               {% endfor %}
+      
+               {% if page_obj.has_next %}
+               <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+               {% endif %}
+            </ul>
+         </nav>
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var dropdowns = document.querySelectorAll('.dropdown');
+
+        dropdowns.forEach(function(dropdown) {
+            var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+            var dropdownButton = dropdown.querySelector('.dropdown-toggle');
+            var dropdownMenuId = dropdownMenu.getAttribute('aria-labelledby');
+
+            console.log('Dropdown ID:', dropdownMenuId);
+
+            dropdownButton.addEventListener('click', function() {
+                dropdownMenu.classList.toggle('show');
+            });
+
+            dropdown.addEventListener('mouseleave', function(event) {
+                if (!dropdown.contains(event.relatedTarget)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+    });
+</script>
+
 {% endblock %}
+
+

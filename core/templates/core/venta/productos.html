@@ -3,11 +3,9 @@
 {% block principal %}
 
 <style>
-  
   .card {
-    height: 460px;
+    height: 100%;
     display: flex;
-
     flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -26,11 +24,11 @@
     justify-content: space-between;
   }
 
+  /* Establece una altura fija para las imágenes */
   .card-img-top {
-    max-width: 100%;
-    height: auto;
     width: 100%;
-    height: 250px;
+    height: 250px; /* Ajusta esta altura según tus necesidades */
+    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
   }
 
   .card-text {
@@ -45,29 +43,115 @@
     margin-top: auto;
     width: 100%;
   }
+
+  /* Estilos para sección de valores de monedas */
+  #valoresMonedas {
+    display: flex;
+    justify-content: center; /* Alinea los elementos en el centro horizontalmente */
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  #valoresMonedas h2 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+  }
+
+  #valoresMonedas h4 {
+    margin: 0;
+  }
+
+  #valoresMonedas .valor {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a1a1a;
+  }
+
+  #valoresMonedas .icono-moneda {
+    font-size: 36px;
+    color: #1a1a1a;
+  }
+
+  /* Estilos específicos para productos */
+  #Productos {
+    margin-top: 30px;
+  }
+
+  .card-body h4 {
+    margin-top: 10px;
+  }
+
+  .card-body button {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  /* Ajustes específicos para los elementos de las monedas */
+  #euroTemplate, #bitcoinTemplate {
+    flex: 1; /* Para que ocupen el mismo espacio */
+    max-width: 300px; /* Ajusta el ancho máximo según necesites */
+    margin: 0 10px; /* Espacio entre los elementos */
+    margin-top: 10px; 
+  }
+
+  #dolarTemplate {
+    flex: 1; /* Para que ocupen el mismo espacio */
+    max-width: 300px; /* Ajusta el ancho máximo según necesites */
+    margin: 0 10px; /* Espacio entre los elementos */
+    margin-top: 20px;  /*Esto es porque el dolar estaba por encima de los demas y me da cosa*/
+  }
+
+  
+  #dolarTemplate, #euroTemplate, #bitcoinTemplate article {
+    text-align: center; /* Alineación del contenido */
+  }
 </style>
 
-<section id="Productos">
-  <div class="container mt-3">
-    <h2 style="text-align: center">Nuestros Productos</h2>
-    <div class="row">
-      <div class="col-md-3 card-equal-height">
-        <div class="card">
-          <img
-            class="card-img-top"
-            src="{% static 'core/img/1.png' %}"
-            alt="Card image"
-            style="width: 100%"
-            width="500"
-            height="450"
-          />
-          <div class="card-body">
-            <h4 class="card-title">Centralita Electrónica</h4>
-            <p class="card-text">
-              Controla el motor y otros sistemas electrónicos.
-            </p>
-            <h4 style="text-align: center;">$8.99 USD</h4>
-            <button>Comprar</button>
+<section id="productos">
+<div class="container mt-3">
+  <h1 style="text-align: center">Nuestros Productos</h1>
+  <h5 style="text-align: center; margin-bottom: 20px;">
+    Nuestra página trabaja con monedas extranjeras, por lo que tenemos el cambio de CLP a estas mismas.
+  </h5>
+  
+  <!-- Sección para mostrar los valores de Dólar, Euro y Bitcoin -->
+  <div id="valoresMonedas">
+    <div id="dolarTemplate">
+      <article>
+        <h2><span class="icono-dolar">$</span> DOLAR</h2>
+        <h5>Fecha: <span class="fecha"></span></h5>
+        <h5>Valor en CLP: <span class="valor" id="valorDolar"></span></h5>
+      </article>
+    </div>
+  
+    <div id="euroTemplate">
+      <article>
+        <h2><span class="icono-moneda">€</span> EURO</h2>
+        <h5>Fecha: <span class="fecha"></span></h5>
+        <h5>Valor en CLP: <span class="valor" id="valorEuro"></span></h5>
+      </article>
+    </div>
+  
+    <div id="bitcoinTemplate">
+      <article>
+        <h2><span class="icono-moneda">₿</span> BITCOIN</h2>
+        <h5>Fecha: <span class="fecha"></span></h5>
+        <h5>Valor en CLP: <span class="valor" id="valorBitcoin"></span></h5>
+      </article>
+    </div>
+  </div>
+
+  <!-- Sección de productos -->
+  <div id="Productos" class="row">
+    <div class="col-md-3 card-equal-height">
+      <div class="card">
+        <img class="card-img-top" src="{% static 'core/img/1.png' %}" alt="Card image" style="width: 100%">
+        <div class="card-body">
+          <h4 class="card-title">Centralita Electrónica</h4>
+          <p class="card-text">Controla el motor y otros sistemas electrónicos.</p>
+          <h4 style="text-align: center;">$8.99 USD</h4>
+          <button>Comprar</button>
           </div>
         </div>
       </div>
