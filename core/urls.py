@@ -1,14 +1,9 @@
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from rest_framework import routers
 from .views import *
-from rest_framework import routers # type: ignore
 
-# CONFIGURACION PARA EL API
-router = routers.DefaultRouter()
-router.register('tipoempleados', TipoEmpleadoViewset)
-router.register('genero', GeneroViewset)
-router.register('empleados', EmpleadoViewset)
-
-#CONFIGURAMOS LAS URL DE API
+# Configuración para el API
 router = routers.DefaultRouter()
 router.register('empleados', EmpleadoViewset)
 router.register('generos', GeneroViewset)
@@ -27,13 +22,21 @@ urlpatterns = [
     path('productos/', venta_productos, name="venta_productos"),
     path('account_locked/', account_locked, name="account_locked"),
 
-    #REGISTER
+    # REGISTER
     path('register/', register, name="register"),
 
-    # API
-    path('api/', include(router.urls)),
-    path('empleadosapi/', empleadosapi, name="empleadosapi"),
-    path('empleadodetalle/<id>/', empleadodetalle, name="empleadodetalle"),
+    # API URLs
+    path('api/', include(router.urls)),  # URLs generadas por el router de DRF
+    path('empleadosapi/', empleadosapi, name="empleadosapi"),  # Ejemplo de una vista de API específica
+    path('empleadodetalle/<id>/', empleadodetalle, name="empleadodetalle"),  # Vista de detalle de empleado
 
-    
+    # URLs de autenticación de Django
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('accounts/password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('accounts/password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+    path('accounts/password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]

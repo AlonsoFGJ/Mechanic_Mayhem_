@@ -185,11 +185,11 @@ LOGOUT_REDIRECT_URL = '/'
 
 #CONFIGURACIÓN DE EMAIL
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.duocuc.cl"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "mat.recabarren@duocuc.cl"
-EMAIL_HOST_PASSWORD = "Mati21649587-M"   
+EMAIL_HOST_USER = "mechanic.mayhem.chile@gmail.com"
+EMAIL_HOST_PASSWORD = "MechanicMayhem2024Ayuda"   
 
 #CONFI PARA GUARDAR LAS IMG
 MEDIA_URL = "/media/"
