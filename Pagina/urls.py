@@ -24,7 +24,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),  # URL para la app 'core'
-    path('accounts/', include('django.contrib.auth.urls')),  # URLs de autenticación de Django
+    #path('accounts/', include('django.contrib.auth.urls')),  # URLs de autenticación de Django
     path('captcha/', include('captcha.urls')),  # URLs de Captcha,
     path('reset_password/', auth_views.PasswordResetView.as_view(), name='password_reset'),  # Reset de contraseña
     path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),  # Confirmación de envío de reset

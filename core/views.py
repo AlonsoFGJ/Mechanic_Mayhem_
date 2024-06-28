@@ -8,9 +8,9 @@ from .serializers import *
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Group 
 #IMPORT API
-from rest_framework import viewsets
-from rest_framework.renderers import JSONRenderer
-import requests
+from rest_framework import viewsets # type: ignore
+from rest_framework.renderers import JSONRenderer # type: ignore
+import requests # type: ignore
 from django.core.paginator import Paginator
 
 
@@ -150,7 +150,19 @@ def subir_proyecto(request):
 def ultimos_trabajos (request):
     return render(request, 'core/categoria/ultimos_trabajos.html')
 
-def venta_productos (request):
+@permission_required('core.view_empleado')
+def venta_productos(request):
+    # Aquí podrías agregar lógica adicional, como procesamiento de compra
+
+    if request.method == 'POST':
+        # Ejemplo ficticio de procesamiento de compra
+        compra_exitosa = True  # Simulación de una compra exitosa (cambiar según lógica real)
+
+        if compra_exitosa:
+            messages.success(request, "Gracias por tu compra")
+        else:
+            messages.error(request, "Error al procesar compra, inténtalo más tarde")
+
     return render(request, 'core/venta/productos.html')
 
 

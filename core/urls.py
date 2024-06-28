@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from rest_framework import routers
+from rest_framework import routers # type: ignore
 from .views import *
 
 # Configuración para el API
