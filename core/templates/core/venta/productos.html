@@ -518,46 +518,49 @@
   
 </section>
 
-
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-
   paypal.Button.render({
-  // Configure environment
-  env: 'sandbox',
-  client: {
-  sandbox: 'AQYXVx3SSCZEt_BeNq6YFDkKt79qbo9KLlxpa6sjJ1XqU-c4-IVixG0svaWaM_cUVnohe_Fx-l3YU4mV',
-  production: 'demo_production_client_id'
-  },
-  // Customize button (optional)
-  locale: 'en_US',
-  style: {
-  size: 'medium',
-  color: 'blue',
-  shape: 'pill',
-  },
-  // Enable Pay Now checkout flow (optional)
-  commit: true,
-  // Set up a payment
-  payment: function (data, actions) {
-  return actions.payment.create({
-  transactions: [{
-  amount: {
-  total: '4.0',
-  currency: 'USD'
-  }
-  }]
-  });
-  },
-  // Execute the payment
-  onAuthorize: function (data, actions) {
-  return actions.payment.execute().then(function () {
-  // Show a confirmation message to the buyer
-  window.alert('Thank you for your purchase!');
-  });
-  }
-  }, '#paypal-button');
+    env: 'sandbox',
+    client: {
+      sandbox: 'AQYXVx3SSCZEt_BeNq6YFDkKt79qbo9KLlxpa6sjJ1XqU-c4-IVixG0svaWaM_cUVnohe_Fx-l3YU4mV',
+      production: 'demo_production_client_id'
+    },
+    locale: 'en_US',
+    style: {
+      size: 'medium',
+      color: 'blue',
+      shape: 'pill',
+    },
+    commit: true,
+    payment: function (data, actions) {
+      return actions.payment.create({
+        transactions: [{
+          amount: {
+            total: '14.99',
+            currency: 'USD'
+          }
+        }]
+      });
+    },
+    onAuthorize: function (data, actions) {
+      return actions.payment.execute().then(function () {
+        // Mostrar SweetAlert después de que el pago se haya ejecutado correctamente
+        Swal.fire({
+          icon: 'success',
+          title: '¡Gracias por tu compra!',
+          text: 'El pago ha sido procesado exitosamente.',
+          showConfirmButton: false,
+          timer: 2000  // Ocultar automáticamente después de 2 segundos
+        });
 
+        // Opcional: Puedes redirigir al usuario a otra página después de unos segundos
+        setTimeout(function() {
+          window.location.href = "#";
+        }, 2500);  // Redirigir después de 2.5 segundos
+      });
+    }
+  }, '#paypal-button');
 </script>
 
 {% endblock %}

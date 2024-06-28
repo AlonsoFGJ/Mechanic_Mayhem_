@@ -1,5 +1,7 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Genero(models.Model):
@@ -47,4 +49,3 @@ class SubirProyecto(models.Model):
     def __str__(self):
         return "{} - {}".format(self.titulo, self.nombre_mecanico)
 
-    

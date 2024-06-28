@@ -151,21 +151,12 @@ def ultimos_trabajos (request):
     return render(request, 'core/categoria/ultimos_trabajos.html')
 
 @permission_required('core.view_empleado')
-def venta_productos(request):
-    # Aquí podrías agregar lógica adicional, como procesamiento de compra
-
-    if request.method == 'POST':
-        # Ejemplo ficticio de procesamiento de compra
-        compra_exitosa = True  # Simulación de una compra exitosa (cambiar según lógica real)
-
-        if compra_exitosa:
-            messages.success(request, "Gracias por tu compra")
-        else:
-            messages.error(request, "Error al procesar compra, inténtalo más tarde")
-
+def venta_productos (request):
     return render(request, 'core/venta/productos.html')
 
-
+@login_required
+def voucher (request):
+    return render(request, 'core/venta/voucher.html')
 
 # UTILIZAMOS LAS VIEWSET PARA MANEJAR LAS PETICIONES HTTP (GET,POST,PUT,DELETE)
 class TipoEmpleadoViewset(viewsets.ModelViewSet):
@@ -211,3 +202,8 @@ def empleadodetalle(request, id):
     }
 
     return render(request, 'core/empleados/crudapi/detalle.html', aux)
+
+
+def venta_carro(request):
+    productos = Producto.objects.all()
+    return render(request, "")
